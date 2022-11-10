@@ -1,0 +1,4 @@
+/.bundle
+/.vscode
+.byebug_history
+Gemfile.lock
