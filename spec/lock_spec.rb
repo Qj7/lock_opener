@@ -11,31 +11,27 @@ describe Lock do
       end
 
       let!(:params) { { from: [0, 0, 0, 0], to: [0, 1, 0, 0] } }
-      it 'verifies that print correct output' do
-        test_output = /[0, ][0, 1]/
-        expect { subject.open }.to output(test_output).to_stdout
+      it 'verifies that return correct result' do
+        expect(subject.open).to eq([[0, 0, 0, 0], [0, 1, 0, 0]])
       end
     end
 
     context 'with more hardest params' do
       let!(:params) { { from: [0, 0, 1, 0], to: [1, 1, 1, 0] } }
-      test_output = /[0, 1][1, 0][1, 0]/
-      it 'verifies that print correct output' do
-        expect { subject.open }.to output(test_output).to_stdout
+      it 'verifies that return correct result' do
+        expect(subject.open).to eq([[0, 0, 1, 0], [1, 0, 1, 0], [1, 1, 1, 0], [1, 1, 1, 1]])
       end
 
       let!(:params) { { from: [0, 0, 1, 0], to: [1, 1, 1, 1], exclude: [[0, 1, 1, 0]] } }
-      test_output = /[0, 1][1, 0][1, 0][1, ]/
-      it 'verifies that print correct output with exclude' do
-        expect { subject.open }.to output(test_output).to_stdout
+      it 'verifies that return correct result with exclude' do
+        expect(subject.open).to eq([[0, 0, 1, 0], [1, 0, 1, 0], [1, 1, 1, 0], [1, 1, 1, 1]])
       end
     end
 
     context 'with task example' do
       let!(:params) { { from: [0, 0, 0], to: [1, 1, 1], exclude: [[0, 0, 1], [1, 0, 0]] } }
-      test_output = /[0, 0, 0][0, 1, 0][1, 1, 0][1, 1, 1]/
       it 'verifies that print correct output with exclude' do
-        expect { subject.open }.to output(test_output).to_stdout
+        expect(subject.open).to eq([[0, 0, 0],[0, 1, 0],[1, 1, 0],[1, 1, 1]])
       end
     end
 

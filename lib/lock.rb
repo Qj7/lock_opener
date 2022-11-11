@@ -56,4 +56,4 @@ class Lock
     output.each { |array| p array }
   end
 end
-#Lock.new(from: [0, 0, 0], to: [1, 1, 1], exclude: [[0, 0, 1], [1, 0, 0]]).open
+Lock.new(from: [0, 0, 0, 0], to: [0, 1, 0, 0], exclude: [[0, 0, 1], [1, 0, 0]]).open
