@@ -18,33 +18,42 @@ class Lock
 
     print_output(build_array_of_possibilites.map! { |e| e.chars.map(&:to_i) })
   end
- 
+
   private
 
   def build_array_of_possibilites
     res = []
     res << @from.join
-    i = 0
+    i = 1
+    it = 0
 
     until @from == @to
       break @break = true if i > @from.size**3
 
-      if @from[i] == @to[i]
+      it = 0 if (i % @from.size).zero?
+      tmp_arr = @from.dup
+
+      if @from[it] == @to[it]
         i += 1
+        it += 1
         next
       end
 
-      @from[i] = @to[i] unless @exclude.include?(@from)
-      res << @from.join
+      tmp_arr[it] = @to[it]
+      unless @exclude.include?(tmp_arr)
+        @from[it] = @to[it]
+        res << @from.join
+      end
+      it += 1
       i += 1
     end
-    res
+    p res
   end
 
   def print_output(output)
     raise 'There is no solution for given params' if @break
 
-    output.each{ |array| p array}
+    output.each { |array| p array }
   end
 end
-#Lock.new(from: [], to:[], exclude: []).open
+#Lock.new(from: [0, 0, 0], to: [1, 1, 1], exclude: [[0, 0, 1], [1, 0, 0]]).open
