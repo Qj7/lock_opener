@@ -31,6 +31,14 @@ describe Lock do
       end
     end
 
+    context 'with task example' do
+      let!(:params) { { from: [0, 0, 0], to: [1, 1, 1], exclude: [[0, 0, 1], [1, 0, 0]] } }
+      test_output = /[0, 0, 0][0, 1, 0][1, 1, 0][1, 1, 1]/
+      it 'verifies that print correct output with exclude' do
+        expect { subject.open }.to output(test_output).to_stdout
+      end
+    end
+
     context 'something went wrong' do
       let!(:params) { { from: [0, 0, 1, 0], to: [1, 1, 1, 1], exclude: [[0, 1, 1, 0], [0, 0, 1, 0]] } }
       it 'with exclude when cannot be done' do
