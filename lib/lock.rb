@@ -16,14 +16,14 @@ class Lock
     raise 'From or to cannot be empty' if @from.empty? || @to.empty?
     raise 'Wrong array size for from or to params' if @from.size != @to.size
 
-    print_output(build_array_of_possibilites.map! { |e| e.chars.map(&:to_i) })
+    print_output(build_array_of_possibilites)
   end
 
   private
 
   def build_array_of_possibilites
     res = []
-    res << @from.join
+    res << @from.dup
     i = 1
     it = 0
 
@@ -42,7 +42,7 @@ class Lock
       tmp_arr[it] = @to[it]
       unless @exclude.include?(tmp_arr)
         @from[it] = @to[it]
-        res << @from.join
+        res << @from.dup
       end
       it += 1
       i += 1
@@ -56,4 +56,4 @@ class Lock
     output.each { |array| p array }
   end
 end
-#Lock.new(from: [0, 0, 0], to: [1, 1, 1], exclude: [[0, 0, 1], [1, 0, 0]]).open
+Lock.new(from: [0, 0, 0], to: [1, 1, 1], exclude: [[0, 0, 1], [1, 0, 0]]).open
