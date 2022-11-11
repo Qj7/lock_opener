@@ -47,7 +47,7 @@ class Lock
       it += 1
       i += 1
     end
-    p res
+    res
   end
 
   def print_output(output)
